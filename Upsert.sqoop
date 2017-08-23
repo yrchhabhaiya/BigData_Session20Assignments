@@ -1,0 +1,23 @@
+﻿MySQL Commands:
+-------------------
+use db1;
+show tables;
+create table customer
+(
+id int(5),
+name varchar(20),
+location varchar(20),
+age int(3),
+PRIMARY KEY (id)
+);
+insert into customer values(1,'Yogesh','IND',25);
+select * from customer;
+commit;
+
+Sqoop Command:
+----------------
+sqoop export --connect jdbc:mysql://localhost/db1 \
+--username 'root' -P --table 'customer' --export-dir '/sqoop' \
+--input-fields-terminated-by ',' -m 1 --columns id,name,location,age \
+--update-key id \
+--update-mode allowinsert
