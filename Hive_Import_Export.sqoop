@@ -1,0 +1,35 @@
+SQL Commands
+-------------
+select * from employee;
+
+
+Hive import
+------------
+sqoop import --connect jdbc:mysql://localhost/db1 \
+--username 'root' -P --table 'employee' \
+--target-dir '/sqoopout' \
+--columns id,name,salary \
+--fields-terminated-by , \
+--hive-import \
+-m 1
+
+
+SQL Commands
+-------------
+use db1;
+show tables;
+create table employeeExport
+(
+id int(5),
+name varchar(20),
+PRIMARY KEY (id)
+);
+select * from employeeExport;
+
+Hive data Export
+------------------
+sqoop export --connect jdbc:mysql://localhost/db1 \
+--username 'root' -P --table 'employeeExport' \
+--export-dir '/apps/hive/warehouse/employee' \
+--input-fields-terminated-by ',' \
+-m 1 --columns id,name

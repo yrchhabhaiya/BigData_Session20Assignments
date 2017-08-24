@@ -1,0 +1,39 @@
+SQL Commands
+----------------
+
+use db1;
+show tables;
+create table employee
+(
+id int(5),
+name varchar(20),
+dept varchar(20),
+salary int(10),
+PRIMARY KEY (id)
+);
+insert into employee values(1,'Yogesh','RND',50000);
+insert into employee values(2,'Ganesh','DEV',55000);
+insert into employee values(3,'Harshad','OPS',70000);
+select * from employee;
+commit;
+
+
+Single Import
+--------------------
+sqoop import --connect jdbc:mysql://localhost/db1 \
+--username 'root' -P --table 'employee' --target-dir '/sqoopout' \
+-m 1;
+
+SQL Commands
+------------
+truncate table employee;
+select * from employee;
+commit;
+
+Sqoop Export
+------------
+sqoop export --connect jdbc:mysql://localhost/db1 \
+--username 'root' -P --table 'employee' \
+--export-dir '/sqoopout' \
+--input-fields-terminated-by ',' \
+-m 1 --columns id,name,dept,salary
